@@ -3,12 +3,9 @@ import environ
 from social_network.settings.base import *
 
 env = environ.Env(
-    DEBUG=(bool, False),
     SECURE_SSL_REDIRECT=(bool, True),
     CORS_ALLOWED_ORIGINS=(list, []),
 )
-
-DEBUG = env('DEBUG')
 
 SECRET_KEY = env('SECRET_KEY')
 
