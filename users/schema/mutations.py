@@ -3,6 +3,7 @@ from graphql_auth.types import ExpectedErrorType
 from graphql_jwt.decorators import login_required
 from graphql_auth.schema import UserNode
 from graphene_file_upload.scalars import Upload
+from django.core.exceptions import ValidationError
 
 from ..forms import UpdateUserForm
 
@@ -30,6 +31,11 @@ class UpdateUserMutation(graphene.relay.ClientIDMutation):
 
         for field, value in kwargs.items():
             setattr(user, field, value)
+
+        try:
+            user.full_clean()
+        except ValidationError as e:
+            return UpdateUserMutation(success=False, errors=e.message_dict)
 
         user.save()
         return UpdateUserMutation(success=True, user=user)
