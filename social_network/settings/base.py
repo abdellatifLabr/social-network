@@ -17,11 +17,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'graphene_django',
-    'users',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     'django_filters',
     'graphql_auth',
     'storages',
+    'users',
+    'follows',
 ]
 
 MIDDLEWARE = [
