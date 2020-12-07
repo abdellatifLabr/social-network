@@ -1,5 +1,5 @@
-social_network/media
-social_network/static
+social_network/mediafiles
+social_network/staticfiles
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
