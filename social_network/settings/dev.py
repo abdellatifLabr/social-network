@@ -1,5 +1,3 @@
-from decouple import config
-
 from social_network.settings.base import *
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
