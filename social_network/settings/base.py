@@ -151,3 +151,9 @@ GRAPHQL_JWT = {
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(hours=5),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 }
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
