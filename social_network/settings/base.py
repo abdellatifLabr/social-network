@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'storages',
     'users',
     'follows',
+    'posts',
 ]
 
 MIDDLEWARE = [
