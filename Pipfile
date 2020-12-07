@@ -14,6 +14,11 @@ python-decouple = "*"
 django-environ = "*"
 autopep8 = "*"
 django-cors-headers = "*"
+pillow = "*"
+graphene-django = "*"
+django-graphql-auth = "*"
+graphene-file-upload = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"
