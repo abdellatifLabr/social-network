@@ -2,7 +2,7 @@ import environ
 
 env = environ.Env()
 
-DEBUG = env('DEBUG')
+DEBUG = env.bool('DEBUG')
 
 if DEBUG:
     from social_network.settings.dev import *
