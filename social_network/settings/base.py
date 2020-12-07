@@ -1,3 +1,5 @@
+import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -14,6 +16,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'graphene_django',
+    'users',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    'django_filters',
+    'graphql_auth',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +88,71 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+AUTH_USER_MODEL = 'users.User'
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_auth.backends.GraphQLAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+GRAPHENE = {
+    'SCHEMA': 'social_network.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware'
+    ]
+}
+
+GRAPHQL_JWT = {
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True
+}
+
+GRAPHQL_AUTH = {
+    'REGISTER_MUTATION_FIELDS': [
+        'email',
+        'username',
+        'full_name',
+    ],
+    'REGISTER_MUTATION_FIELDS_OPTIONAL': [],
+    'UPDATE_MUTATION_FIELDS': [
+        'email',
+        'username',
+        'full_name',
+        'image',
+        'cover',
+        'is_online'
+    ],
+    'USER_NODE_FILTER_FIELDS': {
+        'email': ["exact", 'icontains'],
+        'username': ['exact', 'icontains'],
+        'full_name': ['exact', 'icontains'],
+        'is_online': ['exact']
+    },
+    'SEND_ACTIVATION_EMAIL': False
+}
+
+GRAPHQL_JWT = {
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.VerifyAccount",
+        "graphql_auth.mutations.ResendActivationEmail",
+        "graphql_auth.mutations.SendPasswordResetEmail",
+        "graphql_auth.mutations.PasswordReset",
+        "graphql_auth.mutations.ObtainJSONWebToken",
+        "graphql_auth.mutations.VerifyToken",
+        "graphql_auth.mutations.RefreshToken",
+        "graphql_auth.mutations.RevokeToken",
+        "graphql_auth.mutations.VerifySecondaryEmail",
+    ],
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+    'JWT_EXPIRATION_DELTA': timedelta(hours=2),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(hours=5),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+}
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
