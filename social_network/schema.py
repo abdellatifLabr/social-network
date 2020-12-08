@@ -4,6 +4,7 @@ import users.schema
 import follows.schema
 import posts.schema
 import _messages.schema
+import notifications.schema
 
 
 class Query(
@@ -11,6 +12,7 @@ class Query(
     follows.schema.Query,
     posts.schema.Query,
     _messages.schema.Query,
+    notifications.schema.Query,
     graphene.ObjectType
 ):
     pass
@@ -21,6 +23,7 @@ class Mutation(
     follows.schema.Mutation,
     posts.schema.Mutation,
     _messages.schema.Mutation,
+    notifications.schema.Mutation,
     graphene.ObjectType
 ):
     pass
