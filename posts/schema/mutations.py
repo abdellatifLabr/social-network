@@ -200,7 +200,7 @@ class CreateCommentMutation(graphene.relay.ClientIDMutation):
             }
             return CreateCommentMutation(success=False, errors=errors)
 
-        comment = Comment(user=user, post=post ** kwargs)
+        comment = Comment(user=user, post=post, **kwargs)
 
         try:
             comment.full_clean()

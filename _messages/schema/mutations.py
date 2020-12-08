@@ -56,7 +56,7 @@ class DeleteMessageMutation(graphene.relay.ClientIDMutation):
             }
             return DeleteMessageMutation(success=False, errors=errors)
 
-        if message.user != user:
+        if message.sender != user:
             raise PermissionError('You do not have the permission to perform this action')
 
         message.delete()
