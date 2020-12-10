@@ -1,7 +1,13 @@
 from django.urls import path
+from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
 
 from .consumers import GraphqlWsConsumer
 
-ws_urlpatterns = [
-    path('graphql', GraphqlWsConsumer.as_asgi()),
-]
+application = ProtocolTypeRouter({
+    'websocket': AuthMiddlewareStack(
+        URLRouter([
+            path('graphql', GraphqlWsConsumer),
+        ])
+    )
+})

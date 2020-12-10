@@ -67,7 +67,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'social_network.wsgi.application'
 
-ASGI_APPLICATION = 'social_network.asgi.application'
+ASGI_APPLICATION = 'social_network.routing.application'
 
 CHANNEL_LAYERS = {
     'default': {
