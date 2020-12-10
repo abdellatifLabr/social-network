@@ -37,9 +37,6 @@ class CreateNotificationMutation(graphene.relay.ClientIDMutation):
 
         notification = Notification(author=user, **kwargs)
 
-        if not (notification.follow.user == user or notification.comment.user == user or notification.like.user == user):
-            raise PermissionError('You do not have the permission to perform this action')
-
         if follow_id:
             notification.receiver = Follow.objects.get(pk=follow_id).followed
 
