@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django_filters',
     'graphql_auth',
     'storages',
+    'channels',
     'users',
     'follows',
     'posts',
@@ -58,6 +59,19 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'social_network.wsgi.application'
+
+ASGI_APPLICATION = 'social_network.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [
+                ('redis://:pe734c8cafc9550ef33b519801c7e6e188930d076f16c54a8616830f3af2115be@ec2-54-247-113-130.eu-west-1.compute.amazonaws.com:18379')
+            ]
+        }
+    }
+}
 
 
 # Password validation

@@ -3,8 +3,11 @@ from graphql_jwt.decorators import login_required
 from graphql_auth.types import ExpectedErrorType
 from django.core.exceptions import ValidationError
 
+from follows.models import Follow
+from posts.models import Comment, Like
 from ..models import Notification
 from .nodes import NotificationNode
+from .subscriptions import NotificationSubscription
 
 
 class CreateNotificationMutation(graphene.relay.ClientIDMutation):
@@ -34,12 +37,30 @@ class CreateNotificationMutation(graphene.relay.ClientIDMutation):
 
         notification = Notification(author=user, **kwargs)
 
+        if not (notification.follow.user == user or notification.comment.user == user or notification.like.user == user):
+            raise PermissionError('You do not have the permission to perform this action')
+
+        if follow_id:
+            notification.receiver = Follow.objects.get(pk=follow_id).followed
+
+        if comment_id:
+            notification.receiver = Comment.objects.get(pk=comment_id).post.user
+
+        if like_id:
+            notification.receiver = Like.objects.get(pk=like_id).post.user
+
         try:
             notification.full_clean()
         except ValidationError as e:
             return CreateNotificationMutation(success=False, errors=e.message_dict)
 
         notification.save()
+
+        group_name = f'notifications@{notification.receiver.username}'
+        NotificationSubscription.broadcast(
+            group=group_name,
+            payload=notification
+        )
         return CreateNotificationMutation(success=True, notification=notification)
 
 

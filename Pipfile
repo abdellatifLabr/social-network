@@ -21,6 +21,9 @@ graphene-file-upload = "*"
 psycopg2 = "*"
 django-storages = "*"
 boto3 = "*"
+django-channels-graphql-ws = "*"
+channels = "*"
+channels-redis = "*"
 
 [requires]
 python_version = "3.7"

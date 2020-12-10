@@ -3,6 +3,7 @@ from django.db import models
 
 class Notification(models.Model):
     author = models.ForeignKey('users.User', on_delete=models.SET_NULL, null=True)
+    receiver = models.ForeignKey('users.User', related_name='notifications', on_delete=models.CASCADE)
     follow = models.ForeignKey('follows.Follow', related_name='notifications', on_delete=models.CASCADE, blank=True, null=True)
     comment = models.ForeignKey('posts.Comment', related_name='notifications', on_delete=models.CASCADE, blank=True, null=True)
     like = models.ForeignKey('posts.Like', related_name='notifications', on_delete=models.CASCADE, blank=True, null=True)
