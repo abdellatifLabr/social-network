@@ -25,6 +25,7 @@ django-channels-graphql-ws = "*"
 channels = "*"
 channels-redis = "*"
 daphne = "*"
+uvicorn = "*"
 
 [requires]
 python_version = "3.7"
