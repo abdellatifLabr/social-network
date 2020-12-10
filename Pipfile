@@ -26,6 +26,7 @@ channels = "*"
 channels-redis = "*"
 daphne = "*"
 uvicorn = "*"
+uvloop = "*"
 
 [requires]
 python_version = "3.7"
