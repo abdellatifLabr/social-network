@@ -21,14 +21,3 @@ AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
 AWS_S3_FILE_OVERWRITE = env.bool('AWS_S3_FILE_OVERWRITE')
 AWS_DEFAULT_ACL = None
-
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [
-                (env('REDIS_TLS_URL'))
-            ]
-        }
-    }
-}
