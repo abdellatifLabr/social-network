@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn social_network.wsgi:application --log-file -
+web: daphne social_network.asgi:application --access-log -

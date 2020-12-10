@@ -24,6 +24,7 @@ boto3 = "*"
 django-channels-graphql-ws = "*"
 channels = "*"
 channels-redis = "*"
+daphne = "*"
 
 [requires]
 python_version = "3.7"
