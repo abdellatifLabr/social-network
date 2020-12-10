@@ -25,6 +25,7 @@ django-channels-graphql-ws = "*"
 channels = "*"
 channels-redis = "*"
 daphne = "*"
+twisted = {extras = ["http2", "tls"],version = "*"}
 
 [requires]
 python_version = "3.7"
