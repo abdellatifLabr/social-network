@@ -5,7 +5,7 @@ from pathlib import Path
 import environ
 
 env = environ.Env(
-    SECURE_SSL_REDIRECT=(bool, False),
+    SECURE_SSL_REDIRECT=(bool, True),
     CORS_ALLOWED_ORIGINS=(list, []),
 )
 
