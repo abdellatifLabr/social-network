@@ -1,11 +1,4 @@
-import environ
-
 from social_network.settings.base import *
-
-env = environ.Env(
-    SECURE_SSL_REDIRECT=(bool, True),
-    CORS_ALLOWED_ORIGINS=(list, []),
-)
 
 SECRET_KEY = env('SECRET_KEY')
 

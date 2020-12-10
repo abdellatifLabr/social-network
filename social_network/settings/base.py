@@ -2,6 +2,13 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+import environ
+
+env = environ.Env(
+    SECURE_SSL_REDIRECT=(bool, True),
+    CORS_ALLOWED_ORIGINS=(list, []),
+)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -67,7 +74,7 @@ CHANNEL_LAYERS = {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
             'hosts': [
-                ('redis://:pe734c8cafc9550ef33b519801c7e6e188930d076f16c54a8616830f3af2115be@ec2-54-247-113-130.eu-west-1.compute.amazonaws.com:18379')
+                (env('REDIS_URL'))
             ]
         }
     }
