@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'graphql_auth',
     'storages',
     'channels',
+    'shared',
     'users',
     'follows',
     'posts',

@@ -3,6 +3,7 @@ from graphene_django.types import DjangoObjectType
 from graphql_auth.schema import UserNode
 from graphql_jwt.decorators import login_required
 
+from shared.connections import CountableConnection
 from ..models import Follow
 
 
@@ -26,6 +27,7 @@ class FollowNode(DjangoObjectType):
             'followed__id': ['exact'],
             'followed__full_name': ['exact', 'icontains']
         }
+        connection_class = CountableConnection
         interfaces = (graphene.relay.Node,)
 
     @classmethod

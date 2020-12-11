@@ -2,6 +2,7 @@ import graphene
 from graphene_django.types import DjangoObjectType
 from graphql_auth.schema import UserNode
 
+from shared.connections import CountableConnection
 from ..models import Message, Discussion
 
 
@@ -23,6 +24,7 @@ class DiscussionNode(DjangoObjectType):
             'sender__id': ['exact'],
             'receiver__id': ['exact'],
         }
+        connection_class = CountableConnection
         interfaces = (graphene.relay.Node,)
 
 
@@ -40,4 +42,5 @@ class MessageNode(DjangoObjectType):
             'discussion__id': ['exact'],
             'user__id': ['exact']
         }
+        connection_class = CountableConnection
         interfaces = (graphene.relay.Node,)

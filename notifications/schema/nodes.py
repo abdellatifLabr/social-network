@@ -2,6 +2,7 @@ import graphene
 from graphene_django.types import DjangoObjectType
 from graphql_auth.schema import UserNode
 
+from shared.connections import CountableConnection
 from ..models import Notification
 
 
@@ -17,4 +18,5 @@ class NotificationNode(DjangoObjectType):
         filter_fields = {
             'id': ['exact']
         }
+        connection_class = CountableConnection
         interfaces = (graphene.relay.Node,)
