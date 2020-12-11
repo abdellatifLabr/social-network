@@ -3,7 +3,7 @@ import graphene
 import users.schema
 import follows.schema
 import posts.schema
-import _messages.schema
+import discussions.schema
 import notifications.schema
 
 
@@ -11,7 +11,7 @@ class Query(
     users.schema.Query,
     follows.schema.Query,
     posts.schema.Query,
-    _messages.schema.Query,
+    discussions.schema.Query,
     notifications.schema.Query,
     graphene.ObjectType
 ):
@@ -22,7 +22,7 @@ class Mutation(
     users.schema.Mutation,
     follows.schema.Mutation,
     posts.schema.Mutation,
-    _messages.schema.Mutation,
+    discussions.schema.Mutation,
     notifications.schema.Mutation,
     graphene.ObjectType
 ):
@@ -31,6 +31,7 @@ class Mutation(
 
 class Subscription(
     notifications.schema.Subscription,
+    discussions.schema.Subscription,
     graphene.ObjectType
 ):
     pass
