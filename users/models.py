@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
+from .utils import build_user_image_path, build_user_cover_path
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, username, full_name, password=None):
@@ -52,8 +54,8 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     username = models.CharField(max_length=255, unique=True)
     full_name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='img/users/images/', default='img/users/images/default.jpg')
-    cover = models.ImageField(upload_to='img/users/covers/', default='img/users/covers/default.jpg')
+    image = models.ImageField(upload_to=build_user_image_path)
+    cover = models.ImageField(upload_to=build_user_cover_path)
     is_online = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
