@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timesince import timesince
 
 
 class Post(models.Model):
@@ -8,6 +9,14 @@ class Post(models.Model):
     image = models.ImageField(upload_to='img/posts/image', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def summary(self):
+        return self.body[:200]
+
+    @property
+    def created_since(self):
+        return timesince(self.created_at)
 
 
 class Like(models.Model):
