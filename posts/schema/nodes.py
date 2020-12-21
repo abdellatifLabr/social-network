@@ -10,10 +10,14 @@ class PostNode(DjangoObjectType):
     pk = graphene.Int(source='pk')
     summary = graphene.String(source='summary')
     created_since = graphene.String(source='created_since')
+    image_url = graphene.String()
     user = graphene.Field(UserNode)
 
     def resolve_user(self, info, **kwargs):
         return self.user
+
+    def resolve_image_url(self, info, **kwargs):
+        return info.context.build_absolute_uri(self.image.url)
 
     class Meta:
         model = Post
