@@ -17,6 +17,9 @@ class Post(models.Model):
     @property
     def created_since(self):
         return timesince(self.created_at)
+    
+    class Meta:
+        ordering = ['-created_at']
 
 
 class Like(models.Model):
