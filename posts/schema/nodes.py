@@ -17,7 +17,8 @@ class PostNode(DjangoObjectType):
         return self.user
 
     def resolve_image_url(self, info, **kwargs):
-        return info.context.build_absolute_uri(self.image.url)
+        if self.image:
+            return info.context.build_absolute_uri(self.image.url)
 
     class Meta:
         model = Post
