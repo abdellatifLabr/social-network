@@ -12,10 +12,6 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     @property
-    def summary(self):
-        return self.body[:200]
-
-    @property
     def created_since(self):
         return timesince(self.created_at)
 
