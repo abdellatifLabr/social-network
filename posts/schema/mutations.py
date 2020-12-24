@@ -11,6 +11,7 @@ from .nodes import PostNode, LikeNode, CommentNode
 class CreatePostMutation(graphene.relay.ClientIDMutation):
     class Input:
         title = graphene.String(required=True)
+        summary = graphene.String(required=True)
         body = graphene.String(required=True)
         image = Upload(required=True)
 
@@ -37,6 +38,7 @@ class UpdatePostMutation(graphene.relay.ClientIDMutation):
     class Input:
         id = graphene.ID(required=True)
         title = graphene.String()
+        summary = graphene.String()
         body = graphene.String()
         image = Upload()
 

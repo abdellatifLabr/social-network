@@ -8,7 +8,6 @@ from ..models import Post, Like, Comment
 
 class PostNode(DjangoObjectType):
     pk = graphene.Int(source='pk')
-    summary = graphene.String(source='summary')
     created_since = graphene.String(source='created_since')
     image_url = graphene.String()
     user = graphene.Field(UserNode)

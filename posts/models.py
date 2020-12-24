@@ -5,7 +5,8 @@ from django.utils.timesince import timesince
 class Post(models.Model):
     user = models.ForeignKey('users.User', related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    body = models.TextField(max_length=1000, null=True)
+    summary = models.TextField()
+    body = models.TextField()
     image = models.ImageField(upload_to='img/posts/image', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
