@@ -25,10 +25,10 @@ class Post(models.Model):
 
 class Section(models.Model):
     class SectionType(models.TextChoices):
-        TEXT = ('text', 'Text')
-        IMAGE = ('image', 'Image')
-        VIDEO = ('video', 'Video')
-        YOUTUBE = ('youtube', 'Youtube')
+        TEXT = ('TEXT', 'Text')
+        IMAGE = ('IMAGE', 'Image')
+        VIDEO = ('VIDEO', 'Video')
+        YOUTUBE = ('YOUTUBE', 'Youtube')
 
     post = models.ForeignKey(Post, related_name='sections', on_delete=models.CASCADE)
     order = models.PositiveIntegerField()
