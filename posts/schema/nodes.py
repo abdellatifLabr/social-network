@@ -24,6 +24,8 @@ class PostNode(DjangoObjectType):
         filter_fields = {
             'id': ['exact'],
             'title': ['exact', 'icontains'],
+
+            'user__id': ['exact']
         }
         connection_class = CountableConnection
         interfaces = (graphene.relay.Node,)
