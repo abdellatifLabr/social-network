@@ -1,12 +1,13 @@
 from django.db import models
 from django.utils.timesince import timesince
 
+from .utils import post_files_upload_path
+
 
 class Post(models.Model):
     user = models.ForeignKey('users.User', related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     summary = models.TextField()
-    body = models.TextField()
     image = models.ImageField(upload_to='img/posts/image', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -20,6 +21,23 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+
+class Section(models.Model):
+    class SectionType(models.TextChoices):
+        TEXT = ('text', 'Text')
+        IMAGE = ('image', 'Image')
+        VIDEO = ('video', 'Video')
+        YOUTUBE = ('youtube', 'Youtube')
+
+    post = models.ForeignKey(Post, related_name='sections', on_delete=models.CASCADE)
+    order = models.PositiveIntegerField()
+    type = models.CharField(max_length=30, choices=SectionType.choices)
+    content = models.TextField(blank=True, null=True)
+    file = models.FileField(upload_to=post_files_upload_path, blank=True, null=True)
+
+    class Meta:
+        ordering = ['order']
 
 
 class Like(models.Model):

@@ -4,15 +4,14 @@ from graphql_auth.types import ExpectedErrorType
 from graphene_file_upload.scalars import Upload
 from django.core.exceptions import ValidationError
 
-from ..models import Post, Like, Comment
-from .nodes import PostNode, LikeNode, CommentNode
+from ..models import Post, Like, Comment, Section
+from .nodes import PostNode, LikeNode, CommentNode, SectionNode
 
 
 class CreatePostMutation(graphene.relay.ClientIDMutation):
     class Input:
         title = graphene.String(required=True)
         summary = graphene.String(required=True)
-        body = graphene.String(required=True)
         image = Upload(required=True)
 
     post = graphene.Field(PostNode)
@@ -39,7 +38,6 @@ class UpdatePostMutation(graphene.relay.ClientIDMutation):
         id = graphene.ID(required=True)
         title = graphene.String()
         summary = graphene.String()
-        body = graphene.String()
         image = Upload()
 
     post = graphene.Field(PostNode)
@@ -107,6 +105,49 @@ class DeletePostMutation(graphene.relay.ClientIDMutation):
 
         post.delete()
         return DeletePostMutation(success=True)
+
+
+class CreateSectionMutation(graphene.relay.ClientIDMutation):
+    class Input:
+        post_id = graphene.ID(required=True)
+        order = graphene.Int(required=True)
+        type = graphene.String(required=True)
+        content = graphene.String()
+        file = Upload()
+
+    section = graphene.Field(SectionNode)
+    success = graphene.Boolean()
+    errors = graphene.Field(ExpectedErrorType)
+
+    @login_required
+    def mutate_and_get_payload(self, info, post_id, **kwargs):
+        user = info.context.user
+
+        try:
+            post = Post.objects.get(pk=post_id)
+        except Post.DoesNotExist:
+            errors = {
+                'post': [
+                    {
+                        'message': 'This post does not exist',
+                        'code': 'does_not_exist'
+                    }
+                ]
+            }
+            return CreateSectionMutation(success=False, errors=errors)
+
+        if post.user != user:
+            raise PermissionError('You do not have the permission to perform this action')
+
+        section = Section(post=post, **kwargs)
+
+        try:
+            section.full_clean()
+        except ValidationError as e:
+            return CreateSectionMutation(success=False, errors=e.message_dict)
+
+        section.save()
+        return CreateSectionMutation(success=True, section=section)
 
 
 class CreateLikeMutation(graphene.relay.ClientIDMutation):

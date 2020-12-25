@@ -3,7 +3,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 from graphql_jwt.decorators import login_required
 
 from ..models import Post, Like, Comment
-from .nodes import PostNode, LikeNode, CommentNode
+from .nodes import PostNode, LikeNode, CommentNode, SectionNode
 
 
 class PostQuery(graphene.ObjectType):
@@ -15,6 +15,11 @@ class PostQuery(graphene.ObjectType):
     def resolve_my_posts(self, info, **kwargs):
         user = info.context.user
         return Post.objects.filter(user=user)
+
+
+class SectionQuery(graphene.ObjectType):
+    section = graphene.relay.Node.Field(SectionNode)
+    sections = DjangoFilterConnectionField(SectionNode)
 
 
 class LikeQuery(graphene.ObjectType):
