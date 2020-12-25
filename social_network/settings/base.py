@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'posts',
     'discussions',
     'notifications',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [

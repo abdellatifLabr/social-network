@@ -26,6 +26,7 @@ channels = "*"
 channels-redis = "*"
 daphne = "*"
 twisted = {extras = ["http2", "tls"],version = "*"}
+django-cleanup = "*"
 
 [requires]
 python_version = "3.7"
