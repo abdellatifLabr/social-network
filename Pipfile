@@ -22,11 +22,11 @@ psycopg2 = "*"
 django-storages = "*"
 boto3 = "*"
 django-channels-graphql-ws = "*"
-channels = "*"
 channels-redis = "*"
 daphne = "*"
 twisted = {extras = ["http2", "tls"],version = "*"}
 django-cleanup = "*"
+channels = "*"
 
 [requires]
 python_version = "3.7"
