@@ -3,7 +3,7 @@ from graphene_django.types import DjangoObjectType
 from graphql_auth.schema import UserNode
 
 from shared.connections import CountableConnection
-from ..models import Post, Like, Comment, Section
+from ..models import Post, Like, Comment, Rating, Section
 
 
 class PostNode(DjangoObjectType):
@@ -25,7 +25,7 @@ class PostNode(DjangoObjectType):
             'id': ['exact'],
             'title': ['exact', 'icontains'],
 
-            'user__id': ['exact']
+            'user_id': ['exact']
         }
         connection_class = CountableConnection
         interfaces = (graphene.relay.Node,)
@@ -80,6 +80,23 @@ class CommentNode(DjangoObjectType):
             'id': ['exact'],
             'user__id': ['exact'],
             'post__id': ['exact']
+        }
+        connection_class = CountableConnection
+        interfaces = (graphene.relay.Node,)
+
+
+class RatingNode(DjangoObjectType):
+    pk = graphene.Int(source='pk')
+    user = graphene.Field(UserNode)
+
+    def resolve_user(self, info, **kwargs):
+        return self.user
+
+    class Meta:
+        model = Rating
+        filter_fields = {
+            'id': ['exact'],
+            'value': ['exact'],
         }
         connection_class = CountableConnection
         interfaces = (graphene.relay.Node,)

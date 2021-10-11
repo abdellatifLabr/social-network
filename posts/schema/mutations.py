@@ -62,7 +62,8 @@ class UpdatePostMutation(graphene.relay.ClientIDMutation):
             return UpdatePostMutation(success=False, errors=errors)
 
         if post.user != user:
-            raise PermissionError('You do not have the permission to perform this action')
+            raise PermissionError(
+                'You do not have the permission to perform this action')
 
         for field, value in kwargs.items():
             setattr(post, field, value)
@@ -101,7 +102,8 @@ class DeletePostMutation(graphene.relay.ClientIDMutation):
             return DeletePostMutation(success=False, errors=errors)
 
         if post.user != user:
-            raise PermissionError('You do not have the permission to perform this action')
+            raise PermissionError(
+                'You do not have the permission to perform this action')
 
         post.delete()
         return DeletePostMutation(success=True)
@@ -137,7 +139,8 @@ class CreateSectionMutation(graphene.relay.ClientIDMutation):
             return CreateSectionMutation(success=False, errors=errors)
 
         if post.user != user:
-            raise PermissionError('You do not have the permission to perform this action')
+            raise PermissionError(
+                'You do not have the permission to perform this action')
 
         section = Section(post=post, **kwargs)
 
@@ -211,7 +214,8 @@ class DeleteLikeMutation(graphene.relay.ClientIDMutation):
             return DeleteLikeMutation(success=False, errors=errors)
 
         if like.user != user:
-            raise PermissionError('You do not have the permission to perform this action')
+            raise PermissionError(
+                'You do not have the permission to perform this action')
 
         like.delete()
         return DeleteLikeMutation(success=True)
@@ -281,7 +285,8 @@ class UpdateCommentMutation(graphene.relay.ClientIDMutation):
             return UpdateCommentMutation(success=False, errors=errors)
 
         if comment.user != user:
-            raise PermissionError('You do not have the permission to perform this action')
+            raise PermissionError(
+                'You do not have the permission to perform this action')
 
         for field, value in kwargs.items():
             setattr(comment, field, value)
@@ -320,7 +325,8 @@ class DeleteCommentMutation(graphene.relay.ClientIDMutation):
             return DeleteCommentMutation(success=False, errors=errors)
 
         if comment.user != user:
-            raise PermissionError('You do not have the permission to perform this action')
+            raise PermissionError(
+                'You do not have the permission to perform this action')
 
         comment.delete()
         return DeleteCommentMutation(success=True)
