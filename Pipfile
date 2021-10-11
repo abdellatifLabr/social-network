@@ -27,6 +27,8 @@ daphne = "*"
 twisted = {extras = ["http2", "tls"],version = "*"}
 django-cleanup = "*"
 channels = "*"
+faker = "*"
+django-extensions = "*"
 
 [requires]
 python_version = "3.7"
