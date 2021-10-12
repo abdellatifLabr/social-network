@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.timesince import timesince
+from django.db.models import Avg
 
 from .utils import post_files_upload_path
 
@@ -17,6 +18,10 @@ class Post(models.Model):
     @property
     def created_since(self):
         return timesince(self.created_at)
+
+    @property
+    def rating(self):
+        return round(self.ratings.aggregate(rating=Avg('value'))['rating'], 1)
 
     def __str__(self):
         return self.title
