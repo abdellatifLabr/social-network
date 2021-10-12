@@ -96,3 +96,8 @@ class User(AbstractBaseUser):
     def is_superuser(self):
         "Is the user superuser?"
         return self.is_admin and self.is_staff
+
+    @property
+    def image_url(self):
+        if self.image:
+            return self.image.url
